@@ -235,9 +235,10 @@ namespace SimpleCalculator.Tests
         }
 
         [TestMethod]
-        [DataRow(2, 1, 2)]
-        [DataRow(5, 1, 2, 3, 5, 8)]
-        [DataRow(8, 1, 2, 3, 5, 8, 13, 21, 34)]
+        [DataRow(3, 1, 1, 2)]
+        [DataRow(6, 1, 1, 2, 3, 5, 8)]
+        [DataRow(9, 1, 1, 2, 3, 5, 8, 13, 21, 34)]
+        [DataRow(15, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610)]
         public void GetFibonacciNumbers_should_create_correct_result(int count, params int[] expectedNumbers)
         {
             // Arrange
