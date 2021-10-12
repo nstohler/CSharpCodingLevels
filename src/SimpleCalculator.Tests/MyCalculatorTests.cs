@@ -167,7 +167,7 @@ namespace SimpleCalculator.Tests
         [TestMethod]
         [DataRow(2, 3, 8)]
         [DataRow(3, 2, 9)]
-        [DataRow(4, 0, 0)]
+        [DataRow(4, 0, 1)]
         [DataRow(5, 1, 5)]
         public void PowerWithLoop_should_create_correct_result(int x, int y, int expectedResult)
         {
@@ -184,7 +184,7 @@ namespace SimpleCalculator.Tests
         [TestMethod]
         [DataRow(2, 3, 8)]
         [DataRow(3, 2, 9)]
-        [DataRow(4, 0, 0)]
+        [DataRow(4, 0, 1)]
         [DataRow(5, 1, 5)]
         public void PowerWithMathPow_should_create_correct_result(int x, int y, int expectedResult)
         {
