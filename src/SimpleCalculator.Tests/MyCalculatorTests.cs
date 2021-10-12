@@ -142,5 +142,39 @@ namespace SimpleCalculator.Tests
             // Assert
             result.Should().Be(expectedResult);
         }
+
+        [TestMethod]
+        [DataRow(2, 3, 8)]
+        [DataRow(3, 2, 9)]
+        [DataRow(4, 0, 0)]
+        [DataRow(5, 1, 5)]
+        public void PowerWithLoop_should_create_correct_result(int x, int y, int expectedResult)
+        {
+            // Arrange
+            var calculator = new MyCalculator();
+
+            // Act
+            var result = calculator.PowerWithLoop(x, y);
+
+            // Assert
+            result.Should().Be(expectedResult);
+        }
+
+        [TestMethod]
+        [DataRow(2, 3, 8)]
+        [DataRow(3, 2, 9)]
+        [DataRow(4, 0, 0)]
+        [DataRow(5, 1, 5)]
+        public void PowerWithMathPow_should_create_correct_result(int x, int y, int expectedResult)
+        {
+            // Arrange
+            var calculator = new MyCalculator();
+
+            // Act
+            var result = calculator.PowerWithMathPow(x, y);
+
+            // Assert
+            result.Should().Be(expectedResult);
+        }
     }
 }
