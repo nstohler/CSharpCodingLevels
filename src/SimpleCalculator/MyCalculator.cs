@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace SimpleCalculator
 {
@@ -77,6 +78,47 @@ namespace SimpleCalculator
             throw new NotImplementedException("This should raise x to the power of y (x^y) and return the result.");
         }
 
+        /// <summary>
+        /// Berechnet den ggT (grössten gemeinsamen Teiler).
+        /// English: calculates the greatest common divisor GCD.
+        /// </summary>
+        public int GetGgt(int a, int b)
+        {
+            // https://www.gut-erklaert.de/mathematik/ggt-groesster-gemeinsamer-teiler.html
 
+            // https://www.sofatutor.ch/mathematik/zahlen-rechnen-und-groessen/teilbarkeit-und-mengen/ggt-und-kgv
+            // - Zuerst wird die grössere Zahl durch die kleinere Zahl geteilt.
+            // - Dann wird die kleinere Zahl immer durch den Rest geteilt. Dies wird so lange wiederholt, bis der Rest 0 ist.
+            // 
+            //   360:105 = 3, der Rest ist 45, dann
+            //   105:45 = 2, der Rest ist 15 und
+            //   45:15 = 3, der Rest ist schließlich 0
+            //   ggT(105,360)= 15
+
+            throw new NotImplementedException("This should calculate the ggT and return the result.");
+        }
+
+        /// <summary>
+        /// Calculate the KgV (Kleinstes gemeinsamer Vielfache) 
+        /// English: calculates the least common multiple LCM.
+        /// </summary>
+        public int GetKgv(int a, int b)
+        {
+            // https://www.gut-erklaert.de/mathematik/kgv-kleinstes-gemeinsames-vielfaches.html
+
+            throw new NotImplementedException("This should calculate the KgV and return the result.");
+        }
+
+        /// <summary>
+        /// Calculate the KgV (Kleinstes gemeinsamer Vielfache) 
+        /// English: calculates the least common multiple LCM.
+        /// </summary>
+        public int GetKgvWithGgt(int a, int b)
+        {
+            // Formel: ggT(a,b) * kgV(a,b) = a * b 
+            // => kgV(a,b) = a * b / ggT(a,b)
+
+            throw new NotImplementedException("This should calculate the KgV using the ggT and return the result.");
+        }
     }
 }
