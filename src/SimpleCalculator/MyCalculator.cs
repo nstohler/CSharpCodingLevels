@@ -127,13 +127,20 @@ namespace SimpleCalculator
         /// </summary>
         public List<int> GetFibonacciNumbers(int count)
         {
-            // Fibonacci numbers: 1, 2, 3, 5, 8, 13, 21, 34, ...
+            // Fibonacci numbers: 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
 
             var fibonacciNumbers = new List<int>();
 
-            // fibonacciNumbers.Add(number);
+            var number = 1;
+            var lastNumber = 0;
+            for (int i = 0; i < count; i++)
+            {
+                fibonacciNumbers.Add(number);
 
-            throw new NotImplementedException("This should calculate the Fibonacci numbers using the ggT and return the results as a list.");
+                var temp = number;
+                number = number + lastNumber;
+                lastNumber = temp;
+            }
 
             return fibonacciNumbers;
         }
