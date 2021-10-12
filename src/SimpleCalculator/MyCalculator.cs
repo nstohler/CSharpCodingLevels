@@ -52,7 +52,31 @@ namespace SimpleCalculator
         /// </summary>
         public int Divide(int dividend, int divisor)
         {
-            throw new NotImplementedException("This should divide dividend by the divisor and return the result.");
+            throw new NotImplementedException("This should divide the dividend by the divisor and return the result.");
         }
+
+        /// <summary>
+        /// Calculates x^y
+        /// </summary>
+        public int PowerWithLoop(int x, int y)
+        {
+            // Hints:
+            // - use a for loop
+            throw new NotImplementedException("This should raise x to the power of y (x^y) and return the result.");
+        }
+
+        /// <summary>
+        /// Calculates x^y
+        /// </summary>
+        public int PowerWithMathPow(int x, int y)
+        {
+            // Hints:
+            // - do NOT use any loop here
+            // - use Math.Pow()
+            // - convert the result from Math.Pow() to an integer (int), use "var intResult = (int)result;"
+            throw new NotImplementedException("This should raise x to the power of y (x^y) and return the result.");
+        }
+
+
     }
 }
