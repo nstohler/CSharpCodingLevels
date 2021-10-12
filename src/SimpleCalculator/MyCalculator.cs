@@ -95,7 +95,24 @@ namespace SimpleCalculator
             //   45:15 = 3, der Rest ist schließlich 0
             //   ggT(105,360)= 15
 
-            throw new NotImplementedException("This should calculate the ggT and return the result.");
+            int groessereZahl;
+            int kleinereZahl;
+            if (a < b)
+            {
+                groessereZahl = b;
+                kleinereZahl = a;
+            }
+            else
+            {
+                groessereZahl = a;
+                kleinereZahl = b;
+            }
+            var rest = groessereZahl % kleinereZahl;
+            if (rest == 0)
+            {
+                return kleinereZahl;
+            }
+            return GetGgt(kleinereZahl, rest);
         }
 
         /// <summary>
@@ -106,7 +123,18 @@ namespace SimpleCalculator
         {
             // https://www.gut-erklaert.de/mathematik/kgv-kleinstes-gemeinsames-vielfaches.html
 
-            throw new NotImplementedException("This should calculate the KgV and return the result.");
+            var maxVielfaches = a * b;
+            var multiplesOfA = Enumerable.Range(1, b).Select(x => x * a);
+            var multiplesOfB = Enumerable.Range(1, a).Select(x => x * b);
+
+            foreach (var itemA in multiplesOfA)
+            {
+                if (multiplesOfB.Contains(itemA))
+                {
+                    return itemA;
+                }
+            }
+            return maxVielfaches;
         }
 
         /// <summary>
@@ -117,8 +145,7 @@ namespace SimpleCalculator
         {
             // Formel: ggT(a,b) * kgV(a,b) = a * b 
             // => kgV(a,b) = a * b / ggT(a,b)
-
-            throw new NotImplementedException("This should calculate the KgV using the ggT and return the result.");
+            return a * b / GetGgt(a, b);
         }
     }
 }
