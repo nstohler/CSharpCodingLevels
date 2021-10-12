@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SimpleCalculator
@@ -119,6 +120,22 @@ namespace SimpleCalculator
             // => kgV(a,b) = a * b / ggT(a,b)
 
             throw new NotImplementedException("This should calculate the KgV using the ggT and return the result.");
+        }
+
+        /// <summary>
+        /// Returns a list with the first "count" Fibonacci numbers. 
+        /// </summary>
+        public List<int> GetFibonacciNumbers(int count)
+        {
+            // Fibonacci numbers: 1, 2, 3, 5, 8, 13, 21, 34, ...
+
+            var fibonacciNumbers = new List<int>();
+
+            // fibonacciNumbers.Add(number);
+
+            throw new NotImplementedException("This should calculate the Fibonacci numbers using the ggT and return the results as a list.");
+
+            return fibonacciNumbers;
         }
     }
 }

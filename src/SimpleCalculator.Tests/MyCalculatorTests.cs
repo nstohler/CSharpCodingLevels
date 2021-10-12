@@ -233,5 +233,21 @@ namespace SimpleCalculator.Tests
             // Assert
             result.Should().Be(expectedResult);
         }
+
+        [TestMethod]
+        [DataRow(2, 1, 2)]
+        [DataRow(5, 1, 2, 3, 5, 8)]
+        [DataRow(8, 1, 2, 3, 5, 8, 13, 21, 34)]
+        public void GetFibonacciNumbers_should_create_correct_result(int count, params int[] expectedNumbers)
+        {
+            // Arrange
+            var calculator = new MyCalculator();
+
+            // Act
+            var result = calculator.GetFibonacciNumbers(count);
+
+            // Assert
+            result.Should().BeEquivalentTo(expectedNumbers);
+        }
     }
 }
