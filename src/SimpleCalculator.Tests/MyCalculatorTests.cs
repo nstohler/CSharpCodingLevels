@@ -22,7 +22,7 @@ namespace SimpleCalculator.Tests
         }
 
         [TestMethod]
-        public void Calculator_add_should_create_correct_sum()
+        public void Add_single_test_should_create_correct_sum()
         {
             // Arrange
             var calculator = new MyCalculator();
@@ -35,9 +35,10 @@ namespace SimpleCalculator.Tests
         }
 
         [TestMethod]
+        [DataRow(1, 2, 3)]
         [DataRow(2, 5, 7)]
         [DataRow(5, -10, -5)]
-        public void Calculator_add_should_create_correct_sum(int a, int b, int expectedResult)
+        public void Add_should_create_correct_sum(int a, int b, int expectedResult)
         {
             // Arrange
             var calculator = new MyCalculator();
@@ -50,7 +51,7 @@ namespace SimpleCalculator.Tests
         }
 
         [TestMethod]
-        public void Calculator_subtract_should_create_correct_result()
+        public void Subtract_single_test_should_create_correct_result()
         {
             // Arrange
             var calculator = new MyCalculator();
@@ -63,10 +64,11 @@ namespace SimpleCalculator.Tests
         }
 
         [TestMethod]
+        [DataRow(5, 3, 2)]
         [DataRow(10, 7, 3)]
         [DataRow(-5, 5, -10)]
         [DataRow(1, -5, 6)]
-        public void Calculator_subtract_should_create_correct_result(int a, int b, int expectedResult)
+        public void Subtract_should_create_correct_result(int a, int b, int expectedResult)
         {
             // Arrange
             var calculator = new MyCalculator();
@@ -79,7 +81,7 @@ namespace SimpleCalculator.Tests
         }
 
         [TestMethod]
-        public void Calculator_multiply_should_create_correct_result()
+        public void Multiply_single_test_should_create_correct_result()
         {
             // Arrange
             var calculator = new MyCalculator();
@@ -92,13 +94,14 @@ namespace SimpleCalculator.Tests
         }
 
         [TestMethod]
+        [DataRow(3, 4, 12)]
         [DataRow(3, 7, 21)]
         [DataRow(7, 3, 21)]
         [DataRow(0, 0, 0)]
         [DataRow(1, 0, 0)]
         [DataRow(0, 1, 0)]
         [DataRow(3, -5, -15)]
-        public void Calculator_multiply_should_create_correct_result(int a, int b, int expectedResult)
+        public void Multiply_should_create_correct_result(int a, int b, int expectedResult)
         {
             // Arrange
             var calculator = new MyCalculator();
@@ -111,36 +114,54 @@ namespace SimpleCalculator.Tests
         }
 
         [TestMethod]
-        public void Calculator_divide_should_create_correct_result()
+        public void Divide_single_test_should_create_correct_result()
         {
             // Arrange
             var calculator = new MyCalculator();
 
             // Act
-            var result = calculator.Multiply(15, 3);
+            var result = calculator.Divide(15, 3);
 
             // Assert
             result.Should().Be(5);
         }
 
         [TestMethod]
+        [DataRow(15, 3, 5)]
         [DataRow(24, 8, 3)]
         [DataRow(12, 3, 4)]
         [DataRow(7, 1, 7)]
         [DataRow(0, 123, 0)]
         [DataRow(0, 1, 0)]
         [DataRow(-15, 3, -5)]
-        [DataRow(15, -3, 5)]
-        public void Calculator_divide_should_create_correct_result(int divident, int divisor, int expectedResult)
+        [DataRow(15, -3, -5)]
+        public void Divide_should_create_correct_result(int divident, int divisor, int expectedResult)
         {
             // Arrange
             var calculator = new MyCalculator();
 
             // Act
-            var result = calculator.Multiply(divident, divisor);
+            var result = calculator.Divide(divident, divisor);
 
             // Assert
             result.Should().Be(expectedResult);
+        }
+
+        [TestMethod]
+        [DataRow(10, 7, 1, 3)]
+        [DataRow(5, 7, 0, 5)]
+        [DataRow(30, 13, 2, 4)]
+        public void Modulo_should_create_correct_result(int divident, int divisor, int expectedResult, int expectedRemainder)
+        {
+            // Arrange
+            var calculator = new MyCalculator();
+
+            // Act
+            var (result, remainder) = calculator.Modulo(divident, divisor);
+
+            // Assert
+            result.Should().Be(expectedResult);
+            remainder.Should().Be(expectedRemainder);
         }
 
         [TestMethod]

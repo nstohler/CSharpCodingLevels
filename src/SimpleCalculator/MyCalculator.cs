@@ -58,6 +58,15 @@ namespace SimpleCalculator
         }
 
         /// <summary>
+        /// Returns the result and the remainder of a division
+        /// </summary>
+        public (int result, int remainder) Modulo(int dividend, int divisor)
+        {
+            // return (result, remainder);
+            throw new NotImplementedException("This should divide the dividend by the divisor and return the result and the remainder.");
+        }
+
+        /// <summary>
         /// Calculates x^y
         /// </summary>
         public int PowerWithLoop(int x, int y)
