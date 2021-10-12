@@ -176,5 +176,62 @@ namespace SimpleCalculator.Tests
             // Assert
             result.Should().Be(expectedResult);
         }
+
+        [TestMethod]
+        [DataRow(12, 18, 6)]
+        [DataRow(6, 4, 2)]
+        [DataRow(4, 6, 2)]
+        [DataRow(18, 48, 6)]
+        [DataRow(36, 66, 6)]
+        [DataRow(12, 27, 3)]
+        public void GetGgt_should_create_correct_result(int a, int b, int expectedResult)
+        {
+            // Arrange
+            var calculator = new MyCalculator();
+
+            // Act
+            var result = calculator.GetGgt(a, b);
+
+            // Assert
+            result.Should().Be(expectedResult);
+        }
+
+        [TestMethod]
+        [DataRow(3, 5, 15)]
+        [DataRow(20, 24, 120)]
+        [DataRow(24, 20, 120)]
+        [DataRow(4, 10, 20)]
+        [DataRow(5, 7, 35)]
+        [DataRow(15, 20, 60)]
+        public void GetKgv_should_create_correct_result(int a, int b, int expectedResult)
+        {
+            // Arrange
+            var calculator = new MyCalculator();
+
+            // Act
+            var result = calculator.GetKgv(a, b);
+
+            // Assert
+            result.Should().Be(expectedResult);
+        }
+
+        [TestMethod]
+        [DataRow(3, 5, 15)]
+        [DataRow(20, 24, 120)]
+        [DataRow(24, 20, 120)]
+        [DataRow(4, 10, 20)]
+        [DataRow(5, 7, 35)]
+        [DataRow(15, 20, 60)]
+        public void GetKgvWithGgt_should_create_correct_result(int a, int b, int expectedResult)
+        {
+            // Arrange
+            var calculator = new MyCalculator();
+
+            // Act
+            var result = calculator.GetKgvWithGgt(a, b);
+
+            // Assert
+            result.Should().Be(expectedResult);
+        }
     }
 }
