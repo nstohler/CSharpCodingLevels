@@ -8,66 +8,62 @@ namespace Chess.ConsoleApp
 {
     public class ChessBoardVisualizerService
     {
-        private const int RepeatLineCount = 3;
-        private const int RepeatCharCount = 5;
+        public const int RepeatLineCount = 3;
+        public const int RepeatCharCount = 5;
 
-        public (int top, int left) Draw(int consoleTop, int consoleLeft, ChessBoard chessBoard)
+        private const ConsoleColor WhiteTileColor = ConsoleColor.White;
+        private const ConsoleColor BlackTileColor = ConsoleColor.DarkGray;
+
+        private const ConsoleColor HighlightPieceColor = ConsoleColor.Cyan;
+        private const ConsoleColor HighlightAttackedColor = ConsoleColor.Red;
+
+        public void DrawBackgroundTileLayer(int consoleTop, int consoleLeft, ChessBoard chessBoard)
         {
             // https://en.wikipedia.org/wiki/Box-drawing_character
 
             // https://docs.microsoft.com/en-us/dotnet/api/system.console.setcursorposition?view=net-5.0
-            //Console.Clear();
             
-
             for (int row = 7; row > -1; row--)
             {
                 for (int column = 0; column < 8; column++)
                 {
-                    var consoleColor = chessBoard.ChessBoardBackground[row, column] == ChessBoardColor.White
-                        ? ConsoleColor.White
-                        : ConsoleColor.Cyan;
+                    var consoleColor = chessBoard.ChessBoardColorAt(row, column) == ChessBoardColor.White
+                        ? WhiteTileColor
+                        : BlackTileColor;
                     DrawBoxAt(consoleTop, consoleLeft, row, column, consoleColor, chessBoard);
                 }
             }
-
-            //// draw to console
-            //for (int row = 7; row > -1; row--)
-            //{
-            //    for (int repeatLine = 0; repeatLine < RepeatLineCount; repeatLine++)
-            //    {
-            //        for (int column = 0; column < 8; column++)
-            //        {
-            //            for (int reapeatChar = 0; reapeatChar < RepeatCharCount; reapeatChar++)
-            //            {
-            //                var color = chessBoard.ChessBoardBackground[row, column];
-            //                var drawChar = color == ChessBoardColor.White
-            //                    ? "\u2588"
-            //                    : "\u2591";
-
-            //                // TODO: add logic here to draw chess piece
-
-            //                Console.Write(drawChar);
-            //            }
-            //        }
-
-            //        Console.WriteLine();
-            //    }
-            //}
-            //Console.WriteLine();
             
-            //var (endPosX, endPosY) = (Console.CursorTop, Console.CursorLeft);
-            ////var origCol = Console.CursorLeft;
+            // reset position
+            // Console.SetCursorPosition(consoleLeft, consoleTop + 8 * RepeatLineCount);
+        }
 
-            //Console.SetCursorPosition(origCol+7, origRow+1);
-            //Console.Write('X');
-
-            //Console.SetCursorPosition(endPosY, endPosX);
-            //// Console.Write("");
-            ///
-            
-            Console.SetCursorPosition(consoleLeft, consoleTop + 8 * RepeatLineCount);
-
-            return (consoleTop, consoleLeft);
+        public void DrawHighlightLayer(int consoleTop, int consoleLeft, ChessBoard chessBoard)
+        {
+            for (int row = 7; row > -1; row--)
+            {
+                for (int column = 0; column < 8; column++)
+                {
+                    var highlightColor = chessBoard.HighlightCategoryPositionAt(row, column);
+                    if (highlightColor != ChessTileHighlightCategory.None)
+                    {
+                        var consoleColor = ConsoleColor.Black;
+                        switch (chessBoard.HighlightCategoryPositionAt(row, column))
+                        {
+                            case ChessTileHighlightCategory.Piece:
+                                consoleColor = HighlightPieceColor;
+                                break;
+                            case ChessTileHighlightCategory.Attacked:
+                                consoleColor = HighlightAttackedColor;
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException("unsupported highlight category");
+                                break;
+                        }
+                        DrawBoxAt(consoleTop, consoleLeft, row, column, consoleColor, chessBoard);
+                    }
+                }
+            }
         }
 
         private void DrawBoxAt(int consoleTop, int consoleLeft, int row, int column, ConsoleColor consoleColor, ChessBoard chessBoard)
@@ -78,10 +74,10 @@ namespace Chess.ConsoleApp
 
             Console.ForegroundColor = consoleColor;
 
-            var color = chessBoard.ChessBoardBackground[row, column];
+            var color = chessBoard.ChessBoardColorAt(row, column);
             var drawChar = color == ChessBoardColor.White
                 ? "\u2588"
-                : "\u2591";
+                : "\u2588";
 
             for (int repeatLine = 0; repeatLine < RepeatLineCount; repeatLine++)
             {

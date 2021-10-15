@@ -14,7 +14,7 @@ namespace Chess.Tests
             var board = new ChessBoard();
 
             // Assert
-            board.ChessBoardBackground.Length.Should().Be(64);
+            board.ChessBoardTileCount.Should().Be(64);
         }
 
         [TestMethod]
@@ -34,14 +34,14 @@ namespace Chess.Tests
             };
 
             // Assert
-            board.ChessBoardBackground.Length.Should().Be(64);
+            board.ChessBoardTileCount.Should().Be(64);
 
             for (int row = 0; row < 8; row++)
             {
                 var rowColors = new List<ChessBoardColor>();
                 for (int column = 0; column < 8; column++)
                 {
-                    rowColors.Add(board.ChessBoardBackground[row, column]);
+                    rowColors.Add(board.ChessBoardColorAt(row, column));
                 }
 
                 if (row % 2 == 0)
@@ -62,12 +62,12 @@ namespace Chess.Tests
             var board = new ChessBoard();
             
             // Assert
-            board.ChessBoardBackground.Length.Should().Be(64);
+            board.ChessBoardTileCount.Should().Be(64);
 
-            var corner_1a = board.ChessBoardBackground[0, (int)ChessBoardColumn.A];
-            var corner_1h = board.ChessBoardBackground[0, (int)ChessBoardColumn.H];
-            var corner_8a = board.ChessBoardBackground[7, (int)ChessBoardColumn.A];
-            var corner_8h = board.ChessBoardBackground[7, (int)ChessBoardColumn.H];
+            var corner_1a = board.ChessBoardColorAt(0, (int)ChessBoardColumn.A);
+            var corner_1h = board.ChessBoardColorAt(0, (int)ChessBoardColumn.H);
+            var corner_8a = board.ChessBoardColorAt(7, (int)ChessBoardColumn.A);
+            var corner_8h = board.ChessBoardColorAt(7, (int)ChessBoardColumn.H);
 
             corner_1a.Should().Be(ChessBoardColor.Black);
             corner_1h.Should().Be(ChessBoardColor.White);

@@ -5,20 +5,13 @@ using System.Xml.XPath;
 
 namespace Chess
 {
-    public enum ChessBoardColor
-    {
-        Black,
-        White
-    };
-
-    public enum ChessBoardColumn
-    {
-        A, B, C, D, E, F, G, H
-    }
+    
 
     public class ChessBoard
     {
         private readonly ChessBoardColor[,] _chessBoardBackground = new ChessBoardColor[8,8];
+
+        private readonly ChessTileHighlightCategory[,] _highlightCategoryPositions = new ChessTileHighlightCategory[8, 8];
 
         private readonly Dictionary<(int row, ChessBoardColumn column), ChessPiece> _pieces =
             new Dictionary<(int row, ChessBoardColumn column), ChessPiece>();
@@ -35,11 +28,16 @@ namespace Chess
                     _chessBoardBackground[row, column] = drawBlack 
                         ? ChessBoardColor.Black 
                         : ChessBoardColor.White;
+
+                    _highlightCategoryPositions[row, column] = ChessTileHighlightCategory.None;
                 }
             }
         }
 
-        public ChessBoardColor[,] ChessBoardBackground => _chessBoardBackground;
+        public int ChessBoardTileCount => _chessBoardBackground.Length;
+        public ChessBoardColor ChessBoardColorAt(int row, int column) => _chessBoardBackground[row, column];
+
+        public ChessTileHighlightCategory HighlightCategoryPositionAt(int row, int column) => _highlightCategoryPositions[row, column];
 
         public ImmutableDictionary<(int row, ChessBoardColumn column), ChessPiece> Pieces => _pieces.ToImmutableDictionary();
 
@@ -47,12 +45,10 @@ namespace Chess
         {
             var position = (row, column);
             var result = _pieces.TryAdd(position, chessPiece);
-            return result;
 
-            //if (!_pieces.ContainsKey(position))
-            //{
-            //    var result = _pieces.TryAdd(position, chessPiece);
-            //}
+            _highlightCategoryPositions[row, (int)column] = ChessTileHighlightCategory.Piece;
+
+            return result;
         }
     }
 }
