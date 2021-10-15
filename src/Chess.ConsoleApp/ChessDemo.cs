@@ -24,7 +24,7 @@ namespace Chess.ConsoleApp
             var chessBoard = new ChessBoard();
 
             //chessBoard.AddPiece(0, ChessBoardColumn.E, ChessPiece.Queen);
-            //chessBoard.AddPiece(1, ChessBoardColumn.E, ChessPiece.Queen);
+            chessBoard.AddPiece(1, ChessBoardColumn.E, ChessPiece.Queen);
             //chessBoard.AddPiece(2, ChessBoardColumn.E, ChessPiece.Queen);
             //chessBoard.AddPiece(3, ChessBoardColumn.E, ChessPiece.Queen);
             chessBoard.AddPiece(4, ChessBoardColumn.E, ChessPiece.Queen);
@@ -34,7 +34,7 @@ namespace Chess.ConsoleApp
 
             // draw an empty chessboard
             _chessBoardVisualizerService.DrawBackgroundTileLayer(consoleTop, consoleLeft, chessBoard);
-            _chessBoardVisualizerService.DrawHighlightLayer(consoleTop, consoleLeft, chessBoard);
+            // _chessBoardVisualizerService.DrawHighlightLayer(consoleTop, consoleLeft, chessBoard);
 
             foreach (var chessBoardPiece in chessBoard.Pieces)
             {

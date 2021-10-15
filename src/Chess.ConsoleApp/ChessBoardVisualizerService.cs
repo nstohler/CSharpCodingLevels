@@ -14,8 +14,11 @@ namespace Chess.ConsoleApp
         private const ConsoleColor WhiteTileColor = ConsoleColor.White;
         private const ConsoleColor BlackTileColor = ConsoleColor.DarkGray;
 
-        private const ConsoleColor HighlightPieceColor = ConsoleColor.Cyan;
-        private const ConsoleColor HighlightAttackedColor = ConsoleColor.Red;
+        private const ConsoleColor HighlightPieceLightColor = ConsoleColor.Cyan;
+        private const ConsoleColor HighlightPieceDarkColor = ConsoleColor.DarkCyan;
+
+        private const ConsoleColor HighlightAttackedLightColor = ConsoleColor.Red;
+        private const ConsoleColor HighlightAttackedDarkColor = ConsoleColor.DarkRed;
 
         public void DrawBackgroundTileLayer(int consoleTop, int consoleLeft, ChessBoard chessBoard)
         {
@@ -27,10 +30,11 @@ namespace Chess.ConsoleApp
             {
                 for (int column = 0; column < 8; column++)
                 {
-                    var consoleColor = chessBoard.ChessBoardColorAt(row, column) == ChessBoardColor.White
-                        ? WhiteTileColor
-                        : BlackTileColor;
-                    DrawBoxAt(consoleTop, consoleLeft, row, column, consoleColor, chessBoard);
+                    var backgroundColor = GetBackgroundConsoleColorAt(row, column, chessBoard);
+                    //var consoleColor = chessBoard.ChessBoardColorAt(row, column) == ChessBoardColor.White
+                    //    ? WhiteTileColor
+                    //    : BlackTileColor;
+                    DrawBoxAt(consoleTop, consoleLeft, row, column, backgroundColor, chessBoard);
                 }
             }
             
@@ -38,32 +42,32 @@ namespace Chess.ConsoleApp
             // Console.SetCursorPosition(consoleLeft, consoleTop + 8 * RepeatLineCount);
         }
 
-        public void DrawHighlightLayer(int consoleTop, int consoleLeft, ChessBoard chessBoard)
-        {
-            for (int row = 7; row > -1; row--)
-            {
-                for (int column = 0; column < 8; column++)
-                {
-                    var highlightColor = chessBoard.HighlightCategoryPositionAt(row, column);
-                    if (highlightColor != ChessTileHighlightCategory.None)
-                    {
-                        var consoleColor = ConsoleColor.Black;
-                        switch (chessBoard.HighlightCategoryPositionAt(row, column))
-                        {
-                            case ChessTileHighlightCategory.Piece:
-                                consoleColor = HighlightPieceColor;
-                                break;
-                            case ChessTileHighlightCategory.Attacked:
-                                consoleColor = HighlightAttackedColor;
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException("unsupported highlight category");
-                        }
-                        DrawBoxAt(consoleTop, consoleLeft, row, column, consoleColor, chessBoard);
-                    }
-                }
-            }
-        }
+        //public void DrawHighlightLayer(int consoleTop, int consoleLeft, ChessBoard chessBoard)
+        //{
+        //    for (int row = 7; row > -1; row--)
+        //    {
+        //        for (int column = 0; column < 8; column++)
+        //        {
+        //            var highlightColor = chessBoard.HighlightCategoryPositionAt(row, column);
+        //            if (highlightColor != ChessTileHighlightCategory.None)
+        //            {
+        //                var consoleColor = ConsoleColor.Black;
+        //                switch (chessBoard.HighlightCategoryPositionAt(row, column))
+        //                {
+        //                    case ChessTileHighlightCategory.Piece:
+        //                        consoleColor = HighlightPieceColor;
+        //                        break;
+        //                    case ChessTileHighlightCategory.Attacked:
+        //                        consoleColor = HighlightAttackedColor;
+        //                        break;
+        //                    default:
+        //                        throw new ArgumentOutOfRangeException("unsupported highlight category");
+        //                }
+        //                DrawBoxAt(consoleTop, consoleLeft, row, column, consoleColor, chessBoard);
+        //            }
+        //        }
+        //    }
+        //}
 
         private void DrawBoxAt(int consoleTop, int consoleLeft, int row, int column, ConsoleColor consoleColor, ChessBoard chessBoard)
         {
@@ -102,7 +106,7 @@ namespace Chess.ConsoleApp
 
             Console.SetCursorPosition(posTop, posLeft);
 
-            var backgroundColor = GetBackgroundConsoleColorAt(row, chessBoardColumn, chessBoard);
+            var backgroundColor = GetBackgroundConsoleColorAt(row, (int)chessBoardColumn, chessBoard);
             Console.ForegroundColor = ConsoleColor.Black;
             Console.BackgroundColor = backgroundColor;
 
@@ -114,27 +118,35 @@ namespace Chess.ConsoleApp
             //(RepeatLineCount * row) 
         }
 
-        private ConsoleColor GetBackgroundConsoleColorAt(int row, ChessBoardColumn chessBoardColumn, ChessBoard chessBoard)
+        private ConsoleColor GetBackgroundConsoleColorAt(int row, int column, ChessBoard chessBoard)
         {
             // TODO: refactor into ChessBoard?
             // get either background or (if set) the highlight color at the position
 
-            var column = (int)chessBoardColumn;
+            var chessBoardColor = chessBoard.ChessBoardColorAt(row, column);
+            var backgroundColor = chessBoardColor == ChessBoardColor.White
+                ? WhiteTileColor
+                : BlackTileColor;
+
             var highlightColor = chessBoard.HighlightCategoryPositionAt(row, column);
             if (highlightColor != ChessTileHighlightCategory.None)
             {
                 switch (chessBoard.HighlightCategoryPositionAt(row, column))
                 {
-                    case ChessTileHighlightCategory.Piece:      return HighlightPieceColor;
-                    case ChessTileHighlightCategory.Attacked:   return HighlightAttackedColor;
+                    case ChessTileHighlightCategory.Piece:
+                        backgroundColor = chessBoardColor == ChessBoardColor.White
+                            ? HighlightPieceLightColor
+                            : HighlightPieceDarkColor;
+                        break;
+                    case ChessTileHighlightCategory.Attacked:
+                        backgroundColor = chessBoardColor == ChessBoardColor.White
+                            ? HighlightAttackedLightColor
+                            : HighlightAttackedDarkColor;
+                        break;
                     default:
                         break;
                 }
             }
-
-            var backgroundColor = chessBoard.ChessBoardColorAt(row, column) == ChessBoardColor.White
-                ? WhiteTileColor
-                : BlackTileColor;
 
             return backgroundColor;
         }

@@ -51,9 +51,9 @@ namespace Chess
             }
 
             var position = (row, column);
-            var result = _pieces.TryAdd(position, chessPiece);
+            var result = _pieces.TryAdd(position, chessPiece); 
 
-            // _highlightCategoryPositions[row, (int)column] = ChessTileHighlightCategory.None;
+            _highlightCategoryPositions[row, (int)column] = ChessTileHighlightCategory.Piece;
 
             return result;
         }
