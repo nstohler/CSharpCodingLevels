@@ -12,6 +12,7 @@ namespace Chess.Helpers
         private static readonly ImmutableList<(string ChessPieceChar, string DisplayName, ChessPieceCategory Category)> AllMappings =
             new List<(string, string, ChessPieceCategory)>()
             {
+                //( "\u2655", "Queen", ChessPieceCategory.Queen ),
                 ( "Q", "Queen", ChessPieceCategory.Queen ),
                 ( "K", "King", ChessPieceCategory.King ),
                 ( "B", "Bishop", ChessPieceCategory.Bishop ),
