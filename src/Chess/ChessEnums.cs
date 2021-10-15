@@ -21,7 +21,7 @@ namespace Chess
     {
         None,
         Piece,
-        Attacked
+        // Attacked
     };
 
     public enum ChessPieceCategory

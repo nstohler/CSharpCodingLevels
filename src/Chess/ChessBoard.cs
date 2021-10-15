@@ -13,6 +13,8 @@ namespace Chess
         private readonly ChessBoardColor[,] _chessBoardBackground = new ChessBoardColor[8,8];
 
         private readonly ChessTileHighlightCategory[,] _highlightCategoryPositions = new ChessTileHighlightCategory[8, 8];
+        
+        private readonly bool[,] _endangeredPositions = new bool[8, 8];
 
         private readonly Dictionary<(int row, ChessBoardColumn column), ChessPiece> _pieces =
             new Dictionary<(int row, ChessBoardColumn column), ChessPiece>();
@@ -31,6 +33,7 @@ namespace Chess
                         : ChessBoardColor.White;
 
                     _highlightCategoryPositions[row, column] = ChessTileHighlightCategory.None;
+                    _endangeredPositions[row, column] = false;
                 }
             }
         }
@@ -39,6 +42,8 @@ namespace Chess
         public ChessBoardColor ChessBoardColorAt(int row, int column) => _chessBoardBackground[row, column];
 
         public ChessTileHighlightCategory HighlightCategoryPositionAt(int row, int column) => _highlightCategoryPositions[row, column];
+
+        public bool EndangeredPositionAt(int row, int column) => _endangeredPositions[row, column];
 
         public ImmutableDictionary<(int row, ChessBoardColumn column), ChessPiece> Pieces => _pieces.ToImmutableDictionary();
 
@@ -55,7 +60,77 @@ namespace Chess
 
             _highlightCategoryPositions[row, (int)column] = ChessTileHighlightCategory.Piece;
 
+            // mark attacked fields by this piece
+            // - data strucure?
+            //   - own layer owned by this piece or the board (so it can be removed again easily
+            //   - or create combined attack layer after every addPiece/move piece action
+            UpdateEndangeredPositions();
+
             return result;
+        }
+
+        private void UpdateEndangeredPositions()
+        {
+            ResetEndangeredPositions();
+            foreach (var pieceEntry in _pieces)
+            {
+                var position = pieceEntry.Key;
+                var piece = pieceEntry.Value;
+
+                switch (piece.Category)
+                {
+                    case ChessPieceCategory.King:
+                        break;
+                    case ChessPieceCategory.Queen:
+                        UpdateEndangeredPositionsByAQueen(position.row, position.column, piece);
+                        break;
+                    case ChessPieceCategory.Bishop:
+                        break;
+                    case ChessPieceCategory.Knight:
+                        break;
+                    case ChessPieceCategory.Rook:
+                        break;
+                    case ChessPieceCategory.Pawn:
+                        break;
+                }
+            }
+        }
+
+        private void UpdateEndangeredPositionsByAQueen(int pieceRow, ChessBoardColumn pieceColumn, ChessPiece piece)
+        {
+            // same row
+            for (int column = 0; column < 8; column++)
+            {
+                if(column != (int)pieceColumn)
+                {
+                    _endangeredPositions[pieceRow, column] = true;
+                }
+            }
+
+            // same column
+            for (int row = 0; row < 8; row++)
+            {
+                if (row != (int)pieceRow)
+                {
+                    _endangeredPositions[row, (int)pieceColumn] = true;
+                }
+            }
+        }
+
+        private void ResetEndangeredPositions()
+        {
+            for (int row = 0; row < 8; row++)
+            {
+                for (int column = 0; column < 8; column++)
+                {
+                    //if (_highlightCategoryPositions[row, column] == ChessTileHighlightCategory.Attacked)
+                    //{
+                    //    _highlightCategoryPositions[row, column] = ChessTileHighlightCategory.None;
+                    //    _endangeredPositions[row, column] = false;
+                    //}
+                    _endangeredPositions[row, column] = false;
+                }
+            }
         }
     }
 }

@@ -17,8 +17,8 @@ namespace Chess.ConsoleApp
         private const ConsoleColor HighlightPieceLightColor = ConsoleColor.Cyan;
         private const ConsoleColor HighlightPieceDarkColor = ConsoleColor.DarkCyan;
 
-        private const ConsoleColor HighlightAttackedLightColor = ConsoleColor.Red;
-        private const ConsoleColor HighlightAttackedDarkColor = ConsoleColor.DarkRed;
+        private const ConsoleColor HighlightEndangeredLightColor = ConsoleColor.Red;
+        private const ConsoleColor HighlightEndangeredDarkColor = ConsoleColor.DarkRed;
 
         public void DrawBackgroundTileLayer(int consoleTop, int consoleLeft, ChessBoard chessBoard)
         {
@@ -138,14 +138,21 @@ namespace Chess.ConsoleApp
                             ? HighlightPieceLightColor
                             : HighlightPieceDarkColor;
                         break;
-                    case ChessTileHighlightCategory.Attacked:
-                        backgroundColor = chessBoardColor == ChessBoardColor.White
-                            ? HighlightAttackedLightColor
-                            : HighlightAttackedDarkColor;
-                        break;
+                    //case ChessTileHighlightCategory.Attacked:
+                    //    backgroundColor = chessBoardColor == ChessBoardColor.White
+                    //        ? HighlightAttackedLightColor
+                    //        : HighlightAttackedDarkColor;
+                    //    break;
                     default:
                         break;
                 }
+            }
+
+            if(chessBoard.EndangeredPositionAt(row, column))
+            {
+                backgroundColor = chessBoardColor == ChessBoardColor.White
+                            ? HighlightEndangeredLightColor
+                            : HighlightEndangeredDarkColor;
             }
 
             return backgroundColor;

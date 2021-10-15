@@ -24,7 +24,7 @@ namespace Chess.ConsoleApp
             var chessBoard = new ChessBoard();
 
             //chessBoard.AddPiece(0, ChessBoardColumn.E, ChessPiece.Queen);
-            chessBoard.AddPiece(1, ChessBoardColumn.E, ChessPiece.Queen);
+            //chessBoard.AddPiece(1, ChessBoardColumn.E, ChessPiece.Queen);
             //chessBoard.AddPiece(2, ChessBoardColumn.E, ChessPiece.Queen);
             //chessBoard.AddPiece(3, ChessBoardColumn.E, ChessPiece.Queen);
             chessBoard.AddPiece(4, ChessBoardColumn.E, ChessPiece.Queen);
