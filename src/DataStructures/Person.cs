@@ -7,6 +7,6 @@ namespace DataStructures
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int LuckyNumber { get; set; }
-        public string ShoeSize { get; set; }
+        public int ShoeSize { get; set; }
     }
 }
