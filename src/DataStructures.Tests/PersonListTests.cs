@@ -255,6 +255,31 @@ namespace DataStructures.Tests
             getPerson.NextElement.Should().BeSameAs(lastPerson);
         }
 
+
+        [TestMethod]
+        [DataRow(-1)]
+        [DataRow(5)]
+        [DataRow(555)]
+        public void InsertAt_should_throw_IndexOutOfRangeException_for_invalid_indexes(int index)
+        {
+            // Arrange
+            var list = new PersonList();
+            var existingPersons = GetRandomPersons(5);
+
+            foreach (var existingPerson in existingPersons)
+            {
+                list.Add(existingPerson);
+            }
+
+            // Act
+            Action act = () => list.InsertAt(index, GetRandomPerson());
+
+            // Assert
+            act.Should().Throw<ArgumentOutOfRangeException>()
+                .WithMessage("Invalid index*");
+            list.Count().Should().Be(5);
+        }
+
         private Person GetRandomPerson(int number = 7)
         {
             return new Person()
