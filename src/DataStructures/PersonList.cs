@@ -25,5 +25,14 @@ namespace DataStructures
             throw new NotImplementedException();
         }
 
+        public PersonListElement GetAt(int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PersonListElement InsertAt(int index, Person person)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
