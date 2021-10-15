@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Chess.ConsoleApp
 {
@@ -6,7 +7,7 @@ namespace Chess.ConsoleApp
     {
         static void Main(string[] args)
         {
-            var chessDemo = new ChessDemo();
+            var chessDemo = new ChessDemo(new ChessBoardVisualizerService());
             chessDemo.Run();
         }
     }

@@ -269,7 +269,7 @@ namespace SimpleCalculator.Tests
             var result = calculator.GetFibonacciNumbers(count);
 
             // Assert
-            result.Should().BeEquivalentTo(expectedNumbers);
+            result.Should().Equal(expectedNumbers);
         }
     }
 }
