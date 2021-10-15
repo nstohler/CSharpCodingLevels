@@ -23,4 +23,14 @@ namespace Chess
         Piece,
         Attacked
     };
+
+    public enum ChessPieceCategory
+    {
+        King,
+        Queen, 
+        Bishop, 
+        Knight, 
+        Rook, 
+        Pawn
+    }
 }

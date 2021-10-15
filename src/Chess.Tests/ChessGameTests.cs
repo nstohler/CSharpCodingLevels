@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FluentAssertions;
+using System;
 
 namespace Chess.Tests
 {
@@ -73,6 +74,27 @@ namespace Chess.Tests
             corner_1h.Should().Be(ChessBoardColor.White);
             corner_8a.Should().Be(ChessBoardColor.White);
             corner_8h.Should().Be(ChessBoardColor.Black);
+        }
+
+        [TestMethod]
+        public void AddPiece_should_fail_when_adding_the_same_piece_multiple_times()
+        {
+            // Arrange
+            var board = new ChessBoard();
+            var queen = ChessPiece.Queen;
+
+            // Act
+            board.AddPiece(0, ChessBoardColumn.A, queen);
+            Action act = () => board.AddPiece(1, ChessBoardColumn.B, queen);
+
+            // Assert
+            act.Should().Throw<ArgumentException>()
+                .WithMessage("Piece with same Id already on the board.*")
+                .WithParameterName("chessPiece");
+
+            // board.Pieces.Add((0, ChessBoardColumn.A), queen); // TODO: better readonly access, do not allow to call add etc...
+
+            board.Pieces.Count.Should().Be(1);
         }
     }
 }

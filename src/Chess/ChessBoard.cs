@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Xml.XPath;
 
 namespace Chess
@@ -43,10 +44,16 @@ namespace Chess
 
         public bool AddPiece(int row, ChessBoardColumn column, ChessPiece chessPiece)
         {
+            // only add if the piece with the same id has not been added before
+            if(_pieces.Values.Any(x => x.Id == chessPiece.Id))
+            {
+                throw new ArgumentException("Piece with same Id already on the board.", nameof(chessPiece));
+            }
+
             var position = (row, column);
             var result = _pieces.TryAdd(position, chessPiece);
 
-            _highlightCategoryPositions[row, (int)column] = ChessTileHighlightCategory.Piece;
+            // _highlightCategoryPositions[row, (int)column] = ChessTileHighlightCategory.None;
 
             return result;
         }
