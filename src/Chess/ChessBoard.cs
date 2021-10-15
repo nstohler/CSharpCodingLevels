@@ -115,6 +115,52 @@ namespace Chess
                     _endangeredPositions[row, (int)pieceColumn] = true;
                 }
             }
+
+            // diagonally in all 4 directions
+
+            // down and left
+            {
+                var row = pieceRow - 1;
+                var col = (int)pieceColumn - 1;
+                for (; row > -1 && col > -1; row--, col--)
+                {
+                    // from piece left
+                    _endangeredPositions[row, col] = true;
+                }
+            }
+
+            // down and right
+            {
+                var row = pieceRow - 1;
+                var col = (int)pieceColumn + 1;
+                for (; row > -1 && col < 8; row--, col++)
+                {
+                    // from piece right
+                    _endangeredPositions[row, col] = true;
+                }
+            }
+
+            // up and left
+            {
+                var row = pieceRow + 1;
+                var col = (int)pieceColumn - 1;
+                for (; row < 8 && col > -1; row++, col--)
+                {
+                    // from piece left
+                    _endangeredPositions[row, col] = true;
+                }
+            }
+
+            // up and right
+            {
+                var row = pieceRow + 1;
+                var col = (int)pieceColumn + 1;
+                for (; row < 8 && col < 8; row++, col++)
+                {
+                    // from piece right
+                    _endangeredPositions[row, col] = true;
+                }
+            }
         }
 
         private void ResetEndangeredPositions()
