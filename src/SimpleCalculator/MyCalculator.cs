@@ -92,7 +92,8 @@ namespace SimpleCalculator
         /// Berechnet den ggT (grössten gemeinsamen Teiler).
         /// English: calculates the greatest common divisor GCD.
         /// </summary>
-        public int GetGgt(int a, int b)
+        //public int GetGgt(int a, int b, int remainder = -1)
+        public int GetGgt(int a, int bOrRemainder)
         {
             // https://www.gut-erklaert.de/mathematik/ggt-groesster-gemeinsamer-teiler.html
 
@@ -105,7 +106,31 @@ namespace SimpleCalculator
             //   45:15 = 3, der Rest ist schließlich 0
             //   ggT(105,360)= 15
 
-            throw new NotImplementedException("This should calculate the ggT and return the result.");
+            //if(b > a)
+            //{
+            //    return GetGgt(b, a);
+            //}
+            //// a is bigger than b
+            //if(remainder == 0)
+            //{
+            //    return a;
+            //}
+
+            //remainder = a % b;
+            //return GetGgt(b, remainder, remainder);
+
+            if (bOrRemainder > a)
+            {
+                return GetGgt(bOrRemainder, a);
+            }
+            // a is bigger than b
+            if (bOrRemainder == 0)
+            {
+                return a;
+            }
+
+            var remainder = a % bOrRemainder;
+            return GetGgt(bOrRemainder, remainder);
         }
 
         /// <summary>
