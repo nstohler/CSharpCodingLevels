@@ -17,10 +17,16 @@ namespace Chess.ConsoleApp
 
         public void Run()
         {
+            var consoleTop = Console.CursorTop;
+            var consoleLeft = Console.CursorLeft;
+
+            //Console.ForegroundColor = ConsoleColor.Yellow;
+            //Console.ResetColor();
+
             var chessBoard = new ChessBoard();
 
             // draw an empty chessboard
-            var (top, left) = _chessBoardVisualizerService.Draw(chessBoard);
+            var (top, left) = _chessBoardVisualizerService.Draw(consoleTop, consoleLeft, chessBoard);
 
             var chessPiece = new ChessPiece();
             chessBoard.AddPiece(0, ChessBoardColumn.E, chessPiece);

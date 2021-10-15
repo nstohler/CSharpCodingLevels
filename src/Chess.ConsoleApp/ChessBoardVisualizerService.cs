@@ -11,39 +11,49 @@ namespace Chess.ConsoleApp
         private const int RepeatLineCount = 3;
         private const int RepeatCharCount = 5;
 
-        public (int top, int left) Draw(ChessBoard chessBoard)
+        public (int top, int left) Draw(int consoleTop, int consoleLeft, ChessBoard chessBoard)
         {
             // https://en.wikipedia.org/wiki/Box-drawing_character
 
             // https://docs.microsoft.com/en-us/dotnet/api/system.console.setcursorposition?view=net-5.0
             //Console.Clear();
-            var origRow = Console.CursorTop;
-            var origCol = Console.CursorLeft;
+            
 
-            // draw to console
             for (int row = 7; row > -1; row--)
             {
-                for (int repeatLine = 0; repeatLine < RepeatLineCount; repeatLine++)
+                for (int column = 0; column < 8; column++)
                 {
-                    for (int column = 0; column < 8; column++)
-                    {
-                        for (int reapeatChar = 0; reapeatChar < RepeatCharCount; reapeatChar++)
-                        {
-                            var color = chessBoard.ChessBoardBackground[row, column];
-                            var drawChar = color == ChessBoardColor.White
-                                ? "\u2588"
-                                : "\u2591";
-
-                            // TODO: add logic here to draw chess piece
-
-                            Console.Write(drawChar);
-                        }
-                    }
-
-                    Console.WriteLine();
+                    var consoleColor = chessBoard.ChessBoardBackground[row, column] == ChessBoardColor.White
+                        ? ConsoleColor.White
+                        : ConsoleColor.Cyan;
+                    DrawBoxAt(consoleTop, consoleLeft, row, column, consoleColor, chessBoard);
                 }
             }
-            Console.WriteLine();
+
+            //// draw to console
+            //for (int row = 7; row > -1; row--)
+            //{
+            //    for (int repeatLine = 0; repeatLine < RepeatLineCount; repeatLine++)
+            //    {
+            //        for (int column = 0; column < 8; column++)
+            //        {
+            //            for (int reapeatChar = 0; reapeatChar < RepeatCharCount; reapeatChar++)
+            //            {
+            //                var color = chessBoard.ChessBoardBackground[row, column];
+            //                var drawChar = color == ChessBoardColor.White
+            //                    ? "\u2588"
+            //                    : "\u2591";
+
+            //                // TODO: add logic here to draw chess piece
+
+            //                Console.Write(drawChar);
+            //            }
+            //        }
+
+            //        Console.WriteLine();
+            //    }
+            //}
+            //Console.WriteLine();
             
             //var (endPosX, endPosY) = (Console.CursorTop, Console.CursorLeft);
             ////var origCol = Console.CursorLeft;
@@ -53,10 +63,39 @@ namespace Chess.ConsoleApp
 
             //Console.SetCursorPosition(endPosY, endPosX);
             //// Console.Write("");
+            ///
+            
+            Console.SetCursorPosition(consoleLeft, consoleTop + 8 * RepeatLineCount);
 
-            return (origRow, origCol);
+            return (consoleTop, consoleLeft);
         }
-        
+
+        private void DrawBoxAt(int consoleTop, int consoleLeft, int row, int column, ConsoleColor consoleColor, ChessBoard chessBoard)
+        {
+            var consoleRow = 8 - row - 1;
+            var posLeft = consoleLeft + RepeatCharCount * column; 
+            var posTop = consoleTop + RepeatLineCount * consoleRow;
+
+            Console.ForegroundColor = consoleColor;
+
+            var color = chessBoard.ChessBoardBackground[row, column];
+            var drawChar = color == ChessBoardColor.White
+                ? "\u2588"
+                : "\u2591";
+
+            for (int repeatLine = 0; repeatLine < RepeatLineCount; repeatLine++)
+            {
+                Console.SetCursorPosition(posLeft, posTop + repeatLine);
+                for (int reapeatChar = 0; reapeatChar < RepeatCharCount; reapeatChar++)
+                {
+                    Console.Write(drawChar);
+                }
+            }
+
+            Console.ResetColor();
+            Console.SetCursorPosition(consoleLeft, consoleTop);
+        }
+
         public void DrawPiece(int top, int left, int row, ChessBoardColumn chessBoardColumn, string s)
         {
             var origRow = Console.CursorTop;

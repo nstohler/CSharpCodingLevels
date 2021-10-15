@@ -54,5 +54,25 @@ namespace Chess.Tests
                 }
             }
         }
+
+        [TestMethod]
+        public void Constructor_creates_empty_chessboard_with_correct_corner_colors()
+        {
+            // Arrange/Act
+            var board = new ChessBoard();
+            
+            // Assert
+            board.ChessBoardBackground.Length.Should().Be(64);
+
+            var corner_1a = board.ChessBoardBackground[0, (int)ChessBoardColumn.A];
+            var corner_1h = board.ChessBoardBackground[0, (int)ChessBoardColumn.H];
+            var corner_8a = board.ChessBoardBackground[7, (int)ChessBoardColumn.A];
+            var corner_8h = board.ChessBoardBackground[7, (int)ChessBoardColumn.H];
+
+            corner_1a.Should().Be(ChessBoardColor.Black);
+            corner_1h.Should().Be(ChessBoardColor.White);
+            corner_8a.Should().Be(ChessBoardColor.White);
+            corner_8h.Should().Be(ChessBoardColor.Black);
+        }
     }
 }
