@@ -22,6 +22,22 @@ namespace Chess.ConsoleApp
             // draw an empty chessboard
             var (top, left) = _chessBoardVisualizerService.Draw(chessBoard);
 
+            var chessPiece = new ChessPiece();
+            chessBoard.AddPiece(0, ChessBoardColumn.E, chessPiece);
+            chessBoard.AddPiece(1, ChessBoardColumn.E, chessPiece);
+            chessBoard.AddPiece(2, ChessBoardColumn.E, chessPiece);
+            chessBoard.AddPiece(3, ChessBoardColumn.E, chessPiece);
+            chessBoard.AddPiece(5, ChessBoardColumn.E, chessPiece);
+            chessBoard.AddPiece(6, ChessBoardColumn.E, chessPiece);
+            chessBoard.AddPiece(7, ChessBoardColumn.E, chessPiece);
+            
+            foreach (var chessBoardPiece in chessBoard.Pieces)
+            {
+                var row = chessBoardPiece.Key.row;
+                var column = chessBoardPiece.Key.column;
+                _chessBoardVisualizerService.DrawPiece(top, left, row, column, "P");
+            }
+
             // temp: draw pieces as a test
             _chessBoardVisualizerService.DrawPiece(top, left, 0, ChessBoardColumn.A, "X");
             _chessBoardVisualizerService.DrawPiece(top, left, 1, ChessBoardColumn.B, "X");

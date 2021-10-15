@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Xml.XPath;
 
 namespace Chess
 {
@@ -17,6 +20,9 @@ namespace Chess
     {
         private readonly ChessBoardColor[,] _chessBoardBackground = new ChessBoardColor[8,8];
 
+        private readonly Dictionary<(int row, ChessBoardColumn column), ChessPiece> _pieces =
+            new Dictionary<(int row, ChessBoardColumn column), ChessPiece>();
+
         public ChessBoard()
         {
             for (int row = 0; row < 8; row++)
@@ -34,5 +40,19 @@ namespace Chess
         }
 
         public ChessBoardColor[,] ChessBoardBackground => _chessBoardBackground;
+
+        public ImmutableDictionary<(int row, ChessBoardColumn column), ChessPiece> Pieces => _pieces.ToImmutableDictionary();
+
+        public bool AddPiece(int row, ChessBoardColumn column, ChessPiece chessPiece)
+        {
+            var position = (row, column);
+            var result = _pieces.TryAdd(position, chessPiece);
+            return result;
+
+            //if (!_pieces.ContainsKey(position))
+            //{
+            //    var result = _pieces.TryAdd(position, chessPiece);
+            //}
+        }
     }
 }
