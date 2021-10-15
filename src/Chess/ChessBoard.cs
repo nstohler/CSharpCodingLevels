@@ -6,7 +6,14 @@ using System.Xml.XPath;
 
 namespace Chess
 {
-    
+    // TODO:
+    // - better data structures
+    // - restricted access
+    // - uniform access (row, column)
+    // - drawing layers in own classes?
+    // - logic to calculate endangered field via polymorphism/services?
+    // - option to enable/disable single layers
+    // - black/white player colors (font, symbol?)s
 
     public class ChessBoard
     {
