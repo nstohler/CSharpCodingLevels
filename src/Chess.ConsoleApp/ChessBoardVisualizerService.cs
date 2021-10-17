@@ -42,6 +42,29 @@ namespace Chess.ConsoleApp
             // Console.SetCursorPosition(consoleLeft, consoleTop + 8 * RepeatLineCount);
         }
 
+        public void DrawColumnAndRowLabels(int consoleTop, int consoleLeft, int indent)
+        {
+            for (int row = 7; row > -1; row--)
+            {
+                var consoleRow = 8 - row - 1;
+                var posTop = consoleTop + RepeatLineCount * consoleRow + (RepeatLineCount / 2);
+
+                Console.SetCursorPosition(consoleLeft - indent + 1, posTop);
+                Console.Write(row + 1);
+            }
+
+            var labelRowPosTop = consoleTop + RepeatLineCount * 8 + 1;
+            for (int col = 0; col < 8; col++)
+            {
+                var posLeft = consoleLeft + RepeatCharCount * col + (RepeatCharCount / 2);
+
+                Console.SetCursorPosition(posLeft, labelRowPosTop);
+                Console.Write((ChessBoardColumn)col);
+            }
+
+            Console.SetCursorPosition(consoleTop, consoleLeft);
+        }
+
         //public void DrawHighlightLayer(int consoleTop, int consoleLeft, ChessBoard chessBoard)
         //{
         //    for (int row = 7; row > -1; row--)
@@ -101,10 +124,10 @@ namespace Chess.ConsoleApp
             var origRow = Console.CursorTop;
             var origCol = Console.CursorLeft;
 
-            var posTop = left + RepeatCharCount * (int)chessBoardColumn + (RepeatCharCount / 2);
-            var posLeft = top + RepeatLineCount * consoleRow + (RepeatLineCount / 2);
+            var posTop = top + RepeatLineCount * consoleRow + (RepeatLineCount / 2);
+            var posLeft = left + RepeatCharCount * (int)chessBoardColumn + (RepeatCharCount / 2);
 
-            Console.SetCursorPosition(posTop, posLeft);
+            Console.SetCursorPosition(posLeft, posTop);
 
             var backgroundColor = GetBackgroundConsoleColorAt(row, (int)chessBoardColumn, chessBoard);
             Console.ForegroundColor = ConsoleColor.Black;

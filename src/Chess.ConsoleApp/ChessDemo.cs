@@ -18,8 +18,12 @@ namespace Chess.ConsoleApp
 
         public void Run()
         {
+            var boardIndent = 3;
             var consoleTop = Console.CursorTop;
             var consoleLeft = Console.CursorLeft;
+
+            Console.SetCursorPosition(consoleLeft + 3, consoleTop);
+            consoleLeft += boardIndent; // indent
 
             var chessBoard = new ChessBoard();
 
@@ -47,6 +51,7 @@ namespace Chess.ConsoleApp
 
             // draw an empty chessboard
             _chessBoardVisualizerService.DrawBackgroundTileLayer(consoleTop, consoleLeft, chessBoard);
+            _chessBoardVisualizerService.DrawColumnAndRowLabels(consoleTop, consoleLeft, boardIndent);
             // _chessBoardVisualizerService.DrawHighlightLayer(consoleTop, consoleLeft, chessBoard);
 
             foreach (var chessBoardPiece in chessBoard.Pieces)
@@ -71,7 +76,7 @@ namespace Chess.ConsoleApp
 
             // put some pieces on the board and draw
 
-            Console.SetCursorPosition(consoleLeft, consoleTop + 8 * ChessBoardVisualizerService.RepeatLineCount);
+            Console.SetCursorPosition(consoleLeft, consoleTop + 8 * ChessBoardVisualizerService.RepeatLineCount + 2);
         }
     }
 }
