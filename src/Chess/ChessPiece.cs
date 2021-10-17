@@ -9,6 +9,7 @@ namespace Chess
     public class ChessPiece
     {
         public static ChessPiece Queen => new ChessPiece(ChessPieceCategory.Queen);
+        public static ChessPiece Pawn => new ChessPiece(ChessPieceCategory.Pawn);
 
         public string Id { get; private set; } = Guid.NewGuid().ToString();
         public readonly ChessPieceCategory Category;

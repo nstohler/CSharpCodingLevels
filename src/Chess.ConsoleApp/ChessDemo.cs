@@ -28,6 +28,19 @@ namespace Chess.ConsoleApp
             //chessBoard.AddPiece(2, ChessBoardColumn.E, ChessPiece.Queen);
             //chessBoard.AddPiece(3, ChessBoardColumn.E, ChessPiece.Queen);
             chessBoard.AddPiece(4, ChessBoardColumn.E, ChessPiece.Queen);
+
+            // diagonal checks
+            chessBoard.AddPiece(1, ChessBoardColumn.B, ChessPiece.Pawn);
+            chessBoard.AddPiece(2, ChessBoardColumn.G, ChessPiece.Pawn);
+            chessBoard.AddPiece(6, ChessBoardColumn.G, ChessPiece.Pawn);
+            chessBoard.AddPiece(6, ChessBoardColumn.C, ChessPiece.Pawn);
+
+            // hor/vert checks
+            chessBoard.AddPiece(4, ChessBoardColumn.G, ChessPiece.Pawn);
+            chessBoard.AddPiece(4, ChessBoardColumn.B, ChessPiece.Pawn);
+            chessBoard.AddPiece(2, ChessBoardColumn.E, ChessPiece.Pawn);
+            chessBoard.AddPiece(6, ChessBoardColumn.E, ChessPiece.Pawn);
+
             //chessBoard.AddPiece(5, ChessBoardColumn.E, ChessPiece.Queen);
             //chessBoard.AddPiece(6, ChessBoardColumn.E, ChessPiece.Queen);
             //chessBoard.AddPiece(7, ChessBoardColumn.E, ChessPiece.Queen);
