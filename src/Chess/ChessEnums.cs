@@ -12,9 +12,14 @@ namespace Chess
         White
     };
 
+    public enum ChessBoardRow
+    {
+        Row1, Row2, Row3, Row4, Row5, Row6, Row7, Row8
+    }
+
     public enum ChessBoardColumn
     {
-        A, B, C, D, E, F, G, H
+        ColA, ColB, ColC, ColD, ColE, ColF, ColG, ColH
     }
 
     public enum ChessTileHighlightCategory
@@ -22,7 +27,7 @@ namespace Chess
         None,
         Piece,
         // Attacked
-    };
+    }
 
     public enum ChessPieceCategory
     {

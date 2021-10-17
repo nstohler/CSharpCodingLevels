@@ -32,19 +32,19 @@ namespace Chess.ConsoleApp
             //chessBoard.AddPiece(1, ChessBoardColumn.E, ChessPiece.Queen);
             //chessBoard.AddPiece(2, ChessBoardColumn.E, ChessPiece.Queen);
             //chessBoard.AddPiece(3, ChessBoardColumn.E, ChessPiece.Queen);
-            chessBoard.AddPiece(4, ChessBoardColumn.E, ChessPiece.Queen);
+            chessBoard.AddPiece(ChessBoardRow.Row5, ChessBoardColumn.ColE, ChessPiece.Queen);
 
             // diagonal checks
-            chessBoard.AddPiece(1, ChessBoardColumn.B, ChessPiece.Pawn);
-            chessBoard.AddPiece(2, ChessBoardColumn.G, ChessPiece.Pawn);
-            chessBoard.AddPiece(6, ChessBoardColumn.G, ChessPiece.Pawn);
-            chessBoard.AddPiece(6, ChessBoardColumn.C, ChessPiece.Pawn);
+            chessBoard.AddPiece(ChessBoardRow.Row2, ChessBoardColumn.ColB, ChessPiece.Pawn);
+            chessBoard.AddPiece(ChessBoardRow.Row3, ChessBoardColumn.ColG, ChessPiece.Pawn);
+            chessBoard.AddPiece(ChessBoardRow.Row7, ChessBoardColumn.ColG, ChessPiece.Pawn);
+            chessBoard.AddPiece(ChessBoardRow.Row7, ChessBoardColumn.ColC, ChessPiece.Pawn);
 
             // hor/vert checks
-            chessBoard.AddPiece(4, ChessBoardColumn.G, ChessPiece.Pawn);
-            chessBoard.AddPiece(4, ChessBoardColumn.B, ChessPiece.Pawn);
-            chessBoard.AddPiece(2, ChessBoardColumn.E, ChessPiece.Pawn);
-            chessBoard.AddPiece(6, ChessBoardColumn.E, ChessPiece.Pawn);
+            chessBoard.AddPiece(ChessBoardRow.Row5, ChessBoardColumn.ColG, ChessPiece.Pawn);
+            chessBoard.AddPiece(ChessBoardRow.Row5, ChessBoardColumn.ColB, ChessPiece.Pawn);
+            chessBoard.AddPiece(ChessBoardRow.Row3, ChessBoardColumn.ColE, ChessPiece.Pawn);
+            chessBoard.AddPiece(ChessBoardRow.Row7, ChessBoardColumn.ColE, ChessPiece.Pawn);
 
             //chessBoard.AddPiece(5, ChessBoardColumn.E, ChessPiece.Queen);
             //chessBoard.AddPiece(6, ChessBoardColumn.E, ChessPiece.Queen);

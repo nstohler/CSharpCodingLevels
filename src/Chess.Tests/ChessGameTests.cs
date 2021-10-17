@@ -65,10 +65,10 @@ namespace Chess.Tests
             // Assert
             board.ChessBoardTileCount.Should().Be(64);
 
-            var corner_1a = board.ChessBoardColorAt(0, (int)ChessBoardColumn.A);
-            var corner_1h = board.ChessBoardColorAt(0, (int)ChessBoardColumn.H);
-            var corner_8a = board.ChessBoardColorAt(7, (int)ChessBoardColumn.A);
-            var corner_8h = board.ChessBoardColorAt(7, (int)ChessBoardColumn.H);
+            var corner_1a = board.ChessBoardColorAt(0, (int)ChessBoardColumn.ColA);
+            var corner_1h = board.ChessBoardColorAt(0, (int)ChessBoardColumn.ColH);
+            var corner_8a = board.ChessBoardColorAt(7, (int)ChessBoardColumn.ColA);
+            var corner_8h = board.ChessBoardColorAt(7, (int)ChessBoardColumn.ColH);
 
             corner_1a.Should().Be(ChessBoardColor.Black);
             corner_1h.Should().Be(ChessBoardColor.White);
@@ -84,8 +84,8 @@ namespace Chess.Tests
             var queen = ChessPiece.Queen;
 
             // Act
-            board.AddPiece(0, ChessBoardColumn.A, queen);
-            Action act = () => board.AddPiece(1, ChessBoardColumn.B, queen);
+            board.AddPiece(ChessBoardRow.Row1, ChessBoardColumn.ColA, queen);
+            Action act = () => board.AddPiece(ChessBoardRow.Row2, ChessBoardColumn.ColB, queen);
 
             // Assert
             act.Should().Throw<ArgumentException>()

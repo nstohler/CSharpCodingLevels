@@ -118,18 +118,18 @@ namespace Chess.ConsoleApp
             Console.SetCursorPosition(consoleLeft, consoleTop);
         }
 
-        public void DrawPiece(int top, int left, int row, ChessBoardColumn chessBoardColumn, ChessBoard chessBoard, string s)
+        public void DrawPiece(int top, int left, ChessBoardRow row, ChessBoardColumn chessBoardColumn, ChessBoard chessBoard, string s)
         {
             var consoleRow = 8 - row - 1;
             var origRow = Console.CursorTop;
             var origCol = Console.CursorLeft;
 
-            var posTop = top + RepeatLineCount * consoleRow + (RepeatLineCount / 2);
+            var posTop = top + RepeatLineCount * (int)consoleRow + (RepeatLineCount / 2);
             var posLeft = left + RepeatCharCount * (int)chessBoardColumn + (RepeatCharCount / 2);
 
             Console.SetCursorPosition(posLeft, posTop);
 
-            var backgroundColor = GetBackgroundConsoleColorAt(row, (int)chessBoardColumn, chessBoard);
+            var backgroundColor = GetBackgroundConsoleColorAt((int)row, (int)chessBoardColumn, chessBoard);
             Console.ForegroundColor = ConsoleColor.Black;
             Console.BackgroundColor = backgroundColor;
 
