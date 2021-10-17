@@ -103,41 +103,46 @@ namespace Chess.ConsoleApp
             var backgroundColor = GetBackgroundConsoleColorAt((int)row, (int)chessBoardColumn, chessBoard);
 
             var isBlackPlayer = true;
+            var boxColor = isBlackPlayer
+                ? ConsoleColor.Black
+                : ConsoleColor.White;
 
+            // draw box
+            //var boxBackgroundColor = 
+            Console.ForegroundColor = boxColor;
+            Console.BackgroundColor = backgroundColor;
+
+            // above
+            Console.SetCursorPosition(posLeft - 1, posTop - 1);
+            Console.Write("\u2584\u2584\u2584");
+
+            // below
+            Console.SetCursorPosition(posLeft - 1, posTop + 1);
+            Console.Write("\u2580\u2580\u2580");
+
+            // same line as piece char
+            Console.BackgroundColor = boxColor;
+            Console.SetCursorPosition(posLeft - 1, posTop);
+            Console.Write("\u2588\u2588\u2588");
+
+            // draw piece char now 
+            Console.ResetColor();
+            Console.SetCursorPosition(posLeft, posTop);
             if (isBlackPlayer)
             {
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
-                //Console.BackgroundColor = backgroundColor;
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.BackgroundColor = ConsoleColor.White;
-                //Console.BackgroundColor = backgroundColor;
             }
-
             Console.Write(s);
-
-            Console.ForegroundColor = Console.BackgroundColor;
-            Console.BackgroundColor = backgroundColor;
-
-            Console.SetCursorPosition(posLeft - 1, posTop - 1);
-            Console.Write("\u2584\u2584\u2584");
-
-            Console.SetCursorPosition(posLeft - 1, posTop);
-            Console.Write("\u2588");
-
-            Console.SetCursorPosition(posLeft + 1, posTop);
-            Console.Write("\u2588");
-
-            Console.SetCursorPosition(posLeft - 1, posTop + 1);
-            Console.Write("\u2580\u2580\u2580");
 
             Console.ResetColor();
 
             Console.SetCursorPosition(origCol, origRow);
-            //(RepeatLineCount * row) 
         }
 
         private ConsoleColor GetBackgroundConsoleColorAt(int row, int column, ChessBoard chessBoard)
