@@ -18,12 +18,13 @@ namespace Chess.ConsoleApp
 
         public void Run()
         {
-            var boardIndent = 3;
+            var boardIndent = 3; // to leave some space for the row labels on the left side of the board
+
             var consoleTop = Console.CursorTop;
             var consoleLeft = Console.CursorLeft;
 
             Console.SetCursorPosition(consoleLeft + 3, consoleTop);
-            consoleLeft += boardIndent; // indent
+            consoleLeft += boardIndent;
 
             var chessBoard = new ChessBoard();
 

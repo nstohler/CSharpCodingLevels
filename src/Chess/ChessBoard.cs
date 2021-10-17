@@ -132,11 +132,11 @@ namespace Chess
             }
 
             // same column down
-            for (int row = 0; row < 8; row++)
+            for (int row = pieceRow + 1; row < 8; row++)
             {
-                if (row != (int)pieceRow)
+                //if (row != (int)pieceRow)
                 {
-                    if (_pieces.Keys.Any(x => x.row == pieceRow && x.column == pieceColumn))
+                    if (_pieces.Keys.Any(x => x.row == row && x.column == pieceColumn))
                     {
                         break;
                     }
@@ -147,9 +147,9 @@ namespace Chess
             // same column up
             for (int row = pieceRow - 1; row > -1; row--)
             {
-                if (row != (int)pieceRow)
+                //if (row != (int)pieceRow)
                 {
-                    if (_pieces.Keys.Any(x => x.row == pieceRow && x.column == pieceColumn))
+                    if (_pieces.Keys.Any(x => x.row == row && x.column == pieceColumn))
                     {
                         break;
                     }
