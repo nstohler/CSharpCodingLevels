@@ -101,10 +101,38 @@ namespace Chess.ConsoleApp
             Console.SetCursorPosition(posLeft, posTop);
 
             var backgroundColor = GetBackgroundConsoleColorAt((int)row, (int)chessBoardColumn, chessBoard);
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.BackgroundColor = backgroundColor;
+
+            var isBlackPlayer = true;
+
+            if (isBlackPlayer)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+                //Console.BackgroundColor = backgroundColor;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.White;
+                //Console.BackgroundColor = backgroundColor;
+            }
 
             Console.Write(s);
+
+            Console.ForegroundColor = Console.BackgroundColor;
+            Console.BackgroundColor = backgroundColor;
+
+            Console.SetCursorPosition(posLeft - 1, posTop - 1);
+            Console.Write("\u2584\u2584\u2584");
+
+            Console.SetCursorPosition(posLeft - 1, posTop);
+            Console.Write("\u2588");
+
+            Console.SetCursorPosition(posLeft + 1, posTop);
+            Console.Write("\u2588");
+
+            Console.SetCursorPosition(posLeft - 1, posTop + 1);
+            Console.Write("\u2580\u2580\u2580");
 
             Console.ResetColor();
 
