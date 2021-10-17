@@ -9,10 +9,12 @@ namespace Chess
     public class PieceOnBoard
     {
         private readonly ChessPiece _chessPiece;
+        private readonly PlayerColor _playerColor;
 
-        public PieceOnBoard(ChessPiece chessPiece)
+        public PieceOnBoard(ChessPiece chessPiece, PlayerColor playerColor)
         {
             _chessPiece = chessPiece;
+            _playerColor = playerColor;
         }
 
         // TODO: 
