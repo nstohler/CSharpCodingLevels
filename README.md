@@ -9,3 +9,13 @@
 - then they can checkout the next level branch
 - repeat & learn
 
+## Ideas for futher modules
+
+- trafic signal control
+  - manual
+  - timer
+  - single, crossing
+- elevator control
+  - single
+  - multiple
+
