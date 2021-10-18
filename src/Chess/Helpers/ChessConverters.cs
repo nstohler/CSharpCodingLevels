@@ -50,24 +50,17 @@ namespace Chess.Helpers
             }
             .ToImmutableList();
 
-        public static readonly ImmutableDictionary<ChessPieceCategory, string> ChessPieceCategoryToCharMap;
-        public static readonly ImmutableDictionary<ChessBoardColumn, string> ChessBoardColumnToCharMap;
-        public static readonly ImmutableDictionary<ChessBoardRow, string> ChessBoardRowToCharMap;
+        public static readonly ImmutableDictionary<ChessPieceCategory, string> ChessPieceCategoryToCharMap = PieceMappings
+            .Select(x => new { Key = x.Category, Value = x.ChessPieceChar })
+            .ToImmutableDictionary(x => x.Key, x => x.Value);
 
-        static ChessConverters()
-        {
-            ChessPieceCategoryToCharMap = PieceMappings
-                .Select(x => new { Key = x.Category, Value = x.ChessPieceChar })
-                .ToImmutableDictionary(x => x.Key, x => x.Value);
-
-            ChessBoardColumnToCharMap = ColumnMappings
+        public static readonly ImmutableDictionary<ChessBoardColumn, string> ChessBoardColumnToCharMap = ColumnMappings
                 .Select(x => new { Key = x.Column, Value = x.ColumnChar })
                 .ToImmutableDictionary(x => x.Key, x => x.Value);
 
-            ChessBoardRowToCharMap = RowMappings
+        public static readonly ImmutableDictionary<ChessBoardRow, string> ChessBoardRowToCharMap = RowMappings
                 .Select(x => new { Key = x.Row, Value = x.RowChar })
                 .ToImmutableDictionary(x => x.Key, x => x.Value);
 
-        }
     }
 }
