@@ -28,6 +28,8 @@ namespace Chess
 
         public ChessBoard()
         {
+            var x = ChessAttackCalculationService.QueenAttackPaths;
+
             for (int row = 0; row < 8; row++)
             {
                 var startRowWithBlack = row % 2 == 0;

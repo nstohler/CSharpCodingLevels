@@ -17,6 +17,17 @@ namespace Chess
             _playerColor = playerColor;
         }
 
+        // TODO:
+        // - try chessPiece movement matrix 
+        //   - (0,0) is the player origin 
+        //   - rest is in relative coordinates to (0,0), at most 8 in any direction
+        // - OR: as enums/functions:
+        //   - Horizontally, Vertically, DiagonallyUpLeft, DiagonallyUpRight, DiagonallyDownLeft, DiagonallyDownRight
+        //   - KnightJump
+        //   - PawnMove/PawnMoveIfNotMovedBefore/PawnAttack/PawnAttackEnPassant
+        //   - KingMove
+        // - calulate attack/movement possibilities starting from origin outwards, until something is blocking
+
         // TODO: 
         // - needs info of other pieces to update attack highlights
         // - move piece?

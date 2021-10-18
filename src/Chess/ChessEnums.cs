@@ -14,8 +14,8 @@ namespace Chess
 
     public enum PlayerColor
     {
-        Black, 
-        White
+        Black, // start position: rows 7 + 8
+        White  // start position: rows 1 + 2, always starts the game
     }
 
     public enum ChessBoardRow
