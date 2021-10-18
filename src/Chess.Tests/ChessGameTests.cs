@@ -42,7 +42,7 @@ namespace Chess.Tests
                 var rowColors = new List<ChessBoardColor>();
                 for (int column = 0; column < 8; column++)
                 {
-                    rowColors.Add(board.ChessBoardColorAt(row, column));
+                    rowColors.Add(board.ChessBoardColorAt(column, row));
                 }
 
                 if (row % 2 == 0)
@@ -84,8 +84,8 @@ namespace Chess.Tests
             var queen = ChessPiece.Queen;
 
             // Act
-            board.AddPiece(ChessBoardRow.Row1, ChessBoardColumn.ColA, queen);
-            Action act = () => board.AddPiece(ChessBoardRow.Row2, ChessBoardColumn.ColB, queen);
+            board.AddPiece(ChessBoardColumn.ColA, ChessBoardRow.Row1, queen);
+            Action act = () => board.AddPiece(ChessBoardColumn.ColB, ChessBoardRow.Row2, queen);
 
             // Assert
             act.Should().Throw<ArgumentException>()

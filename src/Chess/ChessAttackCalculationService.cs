@@ -23,11 +23,11 @@ namespace Chess
     public class ChessAttackCalculationService
     {
         // (row, col)
-        public static readonly IImmutableList<(int, int)> QueenAttackPaths = Initialize();
+        public static readonly IImmutableList<(int Column, int Row)> QueenAttackPaths = Initialize();
         
-        public static readonly IImmutableDictionary<AttackVector, List<(int Row, int Column)>> QueenAttackVector = InitializeVectors();
+        public static readonly IImmutableDictionary<AttackVector, List<(int Column, int Row)>> QueenAttackVector = InitializeVectors();
 
-        private static IImmutableDictionary<AttackVector, List<(int Row, int Column)>> InitializeVectors()
+        private static IImmutableDictionary<AttackVector, List<(int Column, int Row)>> InitializeVectors()
         {
             var vectorLeft = new List<(int, int)>();
             var vectorRight = new List<(int, int)>();
@@ -40,20 +40,20 @@ namespace Chess
 
             for (int i = 1; i < 8; i++)
             {
-                vectorLeft.Add((0, -i));
-                vectorRight.Add((0, i));
+                vectorLeft.Add((-i, 0));
+                vectorRight.Add((i, 0));
 
-                vectorUp.Add((i, 0));
-                vectorDown.Add((-i, 0));
+                vectorUp.Add((0, i));
+                vectorDown.Add((0, -i));
 
-                vectorLeftUp.Add((i, -i));
+                vectorLeftUp.Add((-i, i));
                 vectorLeftDown.Add((-i, -i));
 
                 vectorRightUp.Add((i, i));
-                vectorRightDown.Add((-i, i));
+                vectorRightDown.Add((i, -i));
             }
 
-            var map = new Dictionary<AttackVector, List<(int Row, int Column)>>();
+            var map = new Dictionary<AttackVector, List<(int Column, int Row)>>();
             map.Add(AttackVector.Left, vectorLeft);
             map.Add(AttackVector.Right, vectorRight);
             map.Add(AttackVector.Down, vectorDown);
@@ -88,9 +88,9 @@ namespace Chess
             var queenAttackMatrix = new List<(int, int)>();
             for (int i = -7; i < 8; i++)
             {
-                queenAttackMatrix.Add((0, i));  // horizontally
-                queenAttackMatrix.Add((i, 0));  // vertically
-                queenAttackMatrix.Add((-i, i)); // diagonally up-left / down-right
+                queenAttackMatrix.Add((i, 0));  // horizontally
+                queenAttackMatrix.Add((0, i));  // vertically
+                queenAttackMatrix.Add((i, -i)); // diagonally up-left / down-right
                 queenAttackMatrix.Add((i, i));  // diagonally down-left / up-right
             }
 

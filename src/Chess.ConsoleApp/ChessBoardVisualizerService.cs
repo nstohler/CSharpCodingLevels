@@ -21,7 +21,7 @@ namespace Chess.ConsoleApp
         private const ConsoleColor HighlightEndangeredLightColor = ConsoleColor.Red;
         private const ConsoleColor HighlightEndangeredDarkColor = ConsoleColor.DarkRed;
 
-        public void DrawBackgroundTileLayer(int consoleTop, int consoleLeft, ChessBoard chessBoard)
+        public void DrawBackgroundTileLayer(int consoleLeft, int consoleTop, ChessBoard chessBoard)
         {
             // https://en.wikipedia.org/wiki/Box-drawing_character
 
@@ -31,16 +31,16 @@ namespace Chess.ConsoleApp
             {
                 for (int column = 0; column < 8; column++)
                 {
-                    var backgroundColor = GetBackgroundConsoleColorAt(row, column, chessBoard);
-                    DrawBoxAt(consoleTop, consoleLeft, row, column, backgroundColor, chessBoard);
+                    var backgroundColor = GetBackgroundConsoleColorAt(column, row, chessBoard);
+                    DrawBoxAt(consoleLeft, consoleTop, column, row, backgroundColor, chessBoard);
                 }
             }
 
             // reset position
-            Console.SetCursorPosition(consoleTop, consoleLeft);
+            Console.SetCursorPosition(consoleLeft, consoleTop);
         }
 
-        public void DrawColumnAndRowLabels(int consoleTop, int consoleLeft, int indent)
+        public void DrawColumnAndRowLabels(int consoleLeft, int consoleTop, int indent)
         {
             for (int row = 7; row > -1; row--)
             {
@@ -60,10 +60,10 @@ namespace Chess.ConsoleApp
                 Console.Write(ChessConverters.ChessBoardColumnToCharMap[(ChessBoardColumn)col]);
             }
 
-            Console.SetCursorPosition(consoleTop, consoleLeft);
+            Console.SetCursorPosition(consoleLeft, consoleTop);
         }
 
-        private void DrawBoxAt(int consoleTop, int consoleLeft, int row, int column, ConsoleColor consoleColor, ChessBoard chessBoard)
+        private void DrawBoxAt(int consoleLeft, int consoleTop, int column, int row, ConsoleColor consoleColor, ChessBoard chessBoard)
         {
             var consoleRow = 8 - row - 1;
             var posLeft = consoleLeft + RepeatCharCount * column; 
@@ -71,7 +71,7 @@ namespace Chess.ConsoleApp
 
             Console.ForegroundColor = consoleColor;
 
-            var color = chessBoard.ChessBoardColorAt(row, column);
+            var color = chessBoard.ChessBoardColorAt(column, row);
             var drawChar = color == ChessBoardColor.White
                 ? "\u2588"
                 : "\u2588";
@@ -89,7 +89,7 @@ namespace Chess.ConsoleApp
             Console.SetCursorPosition(consoleLeft, consoleTop);
         }
 
-        public void DrawPiece(int top, int left, ChessBoardRow row, ChessBoardColumn chessBoardColumn, ChessBoard chessBoard, string s)
+        public void DrawPiece(int left, int top, ChessBoardColumn chessBoardColumn, ChessBoardRow row, ChessBoard chessBoard, string s)
         {
             var consoleRow = 8 - row - 1;
             var origRow = Console.CursorTop;
@@ -100,7 +100,7 @@ namespace Chess.ConsoleApp
 
             Console.SetCursorPosition(posLeft, posTop);
 
-            var backgroundColor = GetBackgroundConsoleColorAt((int)row, (int)chessBoardColumn, chessBoard);
+            var backgroundColor = GetBackgroundConsoleColorAt((int)chessBoardColumn, (int)row, chessBoard);
 
             var isBlackPlayer = true;
             var boxColor = isBlackPlayer
@@ -145,20 +145,20 @@ namespace Chess.ConsoleApp
             Console.SetCursorPosition(origCol, origRow);
         }
 
-        private ConsoleColor GetBackgroundConsoleColorAt(int row, int column, ChessBoard chessBoard)
+        private ConsoleColor GetBackgroundConsoleColorAt(int column, int row, ChessBoard chessBoard)
         {
             // TODO: refactor into ChessBoard?
             // get either background or (if set) the highlight color at the position
 
-            var chessBoardColor = chessBoard.ChessBoardColorAt(row, column);
+            var chessBoardColor = chessBoard.ChessBoardColorAt(column, row);
             var backgroundColor = chessBoardColor == ChessBoardColor.White
                 ? WhiteTileColor
                 : BlackTileColor;
 
-            var highlightColor = chessBoard.HighlightCategoryPositionAt(row, column);
+            var highlightColor = chessBoard.HighlightCategoryPositionAt(column, row);
             if (highlightColor != ChessTileHighlightCategory.None)
             {
-                switch (chessBoard.HighlightCategoryPositionAt(row, column))
+                switch (chessBoard.HighlightCategoryPositionAt(column, row))
                 {
                     case ChessTileHighlightCategory.Piece:
                         backgroundColor = chessBoardColor == ChessBoardColor.White
@@ -175,7 +175,7 @@ namespace Chess.ConsoleApp
                 }
             }
 
-            if(chessBoard.EndangeredPositionAt(row, column))
+            if(chessBoard.EndangeredPositionAt(column, row))
             {
                 backgroundColor = chessBoardColor == ChessBoardColor.White
                             ? HighlightEndangeredLightColor

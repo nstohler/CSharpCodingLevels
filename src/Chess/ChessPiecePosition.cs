@@ -8,20 +8,20 @@ namespace Chess
 {
     public class ChessPiecePosition : IEquatable<ChessPiecePosition>
     {
-        public ChessBoardRow    Row { get; }
         public ChessBoardColumn Column { get; }
+        public ChessBoardRow    Row { get; }
 
-        public ChessPiecePosition(ChessBoardRow row, ChessBoardColumn column)
+        public ChessPiecePosition(ChessBoardColumn column, ChessBoardRow row)
         {
-            Row = row;
             Column = column;
+            Row = row;
         }
 
         public bool Equals(ChessPiecePosition other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Row == other.Row && Column == other.Column;
+            return Column == other.Column && Row == other.Row;
         }
 
         public override bool Equals(object obj)
@@ -34,7 +34,7 @@ namespace Chess
 
         public override int GetHashCode()
         {
-            return HashCode.Combine((int)Row, (int)Column);
+            return HashCode.Combine((int)Column, (int)Row);
         }
 
         public static bool operator ==(ChessPiecePosition left, ChessPiecePosition right)

@@ -23,8 +23,8 @@ namespace Chess
 
         private readonly bool[,] _endangeredPositions = new bool[8, 8];
 
-        private readonly Dictionary<(ChessBoardRow row, ChessBoardColumn column), ChessPiece> _pieces =
-            new Dictionary<(ChessBoardRow row, ChessBoardColumn column), ChessPiece>();
+        private readonly Dictionary<(ChessBoardColumn column, ChessBoardRow row), ChessPiece> _pieces =
+            new Dictionary<(ChessBoardColumn column, ChessBoardRow row), ChessPiece>();
 
         public ChessBoard()
         {
@@ -37,26 +37,26 @@ namespace Chess
                 for (int column = 0; column < 8; column++)
                 {
                     var drawBlack = column % 2 == columnModifier;
-                    _chessBoardBackground[row, column] = drawBlack
+                    _chessBoardBackground[column, row] = drawBlack
                         ? ChessBoardColor.Black
                         : ChessBoardColor.White;
 
-                    _highlightCategoryPositions[row, column] = ChessTileHighlightCategory.None;
-                    _endangeredPositions[row, column] = false;
+                    _highlightCategoryPositions[column, row] = ChessTileHighlightCategory.None;
+                    _endangeredPositions[column, row] = false;
                 }
             }
         }
 
         public int ChessBoardTileCount => _chessBoardBackground.Length;
-        public ChessBoardColor ChessBoardColorAt(int row, int column) => _chessBoardBackground[row, column];
+        public ChessBoardColor ChessBoardColorAt(int column, int row) => _chessBoardBackground[column, row];
 
-        public ChessTileHighlightCategory HighlightCategoryPositionAt(int row, int column) => _highlightCategoryPositions[row, column];
+        public ChessTileHighlightCategory HighlightCategoryPositionAt(int column, int row) => _highlightCategoryPositions[column, row];
 
-        public bool EndangeredPositionAt(int row, int column) => _endangeredPositions[row, column];
+        public bool EndangeredPositionAt(int column, int row) => _endangeredPositions[column, row];
 
-        public ImmutableDictionary<(ChessBoardRow row, ChessBoardColumn column), ChessPiece> Pieces => _pieces.ToImmutableDictionary();
+        public ImmutableDictionary<(ChessBoardColumn column, ChessBoardRow row), ChessPiece> Pieces => _pieces.ToImmutableDictionary();
 
-        public bool AddPiece(ChessBoardRow row, ChessBoardColumn column, ChessPiece chessPiece)
+        public bool AddPiece(ChessBoardColumn column, ChessBoardRow row, ChessPiece chessPiece)
         {
             // only add if the piece with the same id has not been added before
             if (_pieces.Values.Any(x => x.Id == chessPiece.Id))
@@ -64,10 +64,10 @@ namespace Chess
                 throw new ArgumentException("Piece with same Id already on the board.", nameof(chessPiece));
             }
 
-            var position = (row, column);
+            var position = (column, row);
             var result = _pieces.TryAdd(position, chessPiece);
 
-            _highlightCategoryPositions[(int)row, (int)column] = ChessTileHighlightCategory.Piece;
+            _highlightCategoryPositions[(int)column, (int)row] = ChessTileHighlightCategory.Piece;
 
             // mark attacked fields by this piece
             // - data strucure?
@@ -91,7 +91,7 @@ namespace Chess
                     case ChessPieceCategory.King:
                         break;
                     case ChessPieceCategory.Queen:
-                        UpdateEndangeredPositionsByAQueen(position.row, position.column, piece);
+                        UpdateEndangeredPositionsByAQueen(position.column, position.row, piece);
                         break;
                     case ChessPieceCategory.Bishop:
                         break;
@@ -105,15 +105,15 @@ namespace Chess
             }
         }
 
-        private void UpdateEndangeredPositionsByAQueen(ChessBoardRow pieceRow, ChessBoardColumn pieceColumn, ChessPiece piece)
+        private void UpdateEndangeredPositionsByAQueen(ChessBoardColumn pieceColumn, ChessBoardRow pieceRow, ChessPiece piece)
         {
             // same row to right
             for (int column = (int)pieceColumn + 1; column < 8; column++)
             {
                 if (column != (int)pieceColumn)
                 {
-                    _endangeredPositions[(int)pieceRow, column] = true;
-                    if (_pieces.Keys.Any(x => x.row == pieceRow && (int)x.column == column))
+                    _endangeredPositions[column, (int)pieceRow] = true;
+                    if (_pieces.Keys.Any(x => (int)x.column == column && x.row == pieceRow))
                     {
                         break;
                     }
@@ -125,8 +125,8 @@ namespace Chess
             {
                 if (column != (int)pieceColumn)
                 {
-                    _endangeredPositions[(int)pieceRow, column] = true;
-                    if (_pieces.Keys.Any(x => x.row == pieceRow && (int)x.column == column))
+                    _endangeredPositions[column, (int)pieceRow] = true;
+                    if (_pieces.Keys.Any(x => (int)x.column == column && x.row == pieceRow))
                     {
                         break;
                     }
@@ -136,8 +136,8 @@ namespace Chess
             // same column down
             for (int row = (int)pieceRow + 1; row < 8; row++)
             {
-                _endangeredPositions[row, (int)pieceColumn] = true;
-                if (_pieces.Keys.Any(x => (int)x.row == row && x.column == pieceColumn))
+                _endangeredPositions[(int)pieceColumn, row] = true;
+                if (_pieces.Keys.Any(x => x.column == pieceColumn && (int)x.row == row))
                 {
                     break;
                 }
@@ -146,8 +146,8 @@ namespace Chess
             // same column up
             for (int row = (int)pieceRow - 1; row > -1; row--)
             {
-                _endangeredPositions[row, (int)pieceColumn] = true;
-                if (_pieces.Keys.Any(x => (int)x.row == row && x.column == pieceColumn))
+                _endangeredPositions[(int)pieceColumn, row] = true;
+                if (_pieces.Keys.Any(x => x.column == pieceColumn && (int)x.row == row))
                 {
                     break;
                 }
@@ -162,8 +162,8 @@ namespace Chess
                 for (; row > -1 && col > -1; row--, col--)
                 {
                     // from piece left
-                    _endangeredPositions[row, col] = true;
-                    if (_pieces.Keys.Any(x => (int)x.row == row && (int)x.column == col))
+                    _endangeredPositions[col, row] = true;
+                    if (_pieces.Keys.Any(x => (int)x.column == col && (int)x.row == row))
                     {
                         break;
                     }
@@ -177,8 +177,8 @@ namespace Chess
                 for (; (int)row > -1 && col < 8; row--, col++)
                 {
                     // from piece right
-                    _endangeredPositions[(int)row, col] = true;
-                    if (_pieces.Keys.Any(x => x.row == row && (int)x.column == col))
+                    _endangeredPositions[col, (int)row] = true;
+                    if (_pieces.Keys.Any(x => (int)x.column == col && x.row == row))
                     {
                         break;
                     }
@@ -192,8 +192,8 @@ namespace Chess
                 for (; (int)row < 8 && col > -1; row++, col--)
                 {
                     // from piece left
-                    _endangeredPositions[(int)row, col] = true;
-                    if (_pieces.Keys.Any(x => x.row == row && (int)x.column == col))
+                    _endangeredPositions[col, (int)row] = true;
+                    if (_pieces.Keys.Any(x => (int)x.column == col && x.row == row))
                     {
                         break;
                     }
@@ -207,8 +207,8 @@ namespace Chess
                 for (; (int)row < 8 && col < 8; row++, col++)
                 {
                     // from piece right
-                    _endangeredPositions[(int)row, col] = true;
-                    if (_pieces.Keys.Any(x => x.row == row && (int)x.column == col))
+                    _endangeredPositions[col, (int)row] = true;
+                    if (_pieces.Keys.Any(x => (int)x.column == col && x.row == row))
                     {
                         break;
                     }
@@ -227,7 +227,7 @@ namespace Chess
                     //    _highlightCategoryPositions[row, column] = ChessTileHighlightCategory.None;
                     //    _endangeredPositions[row, column] = false;
                     //}
-                    _endangeredPositions[row, column] = false;
+                    _endangeredPositions[column, row] = false;
                 }
             }
         }

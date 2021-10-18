@@ -32,27 +32,27 @@ namespace Chess.ConsoleApp
             //chessBoard.AddPiece(1, ChessBoardColumn.E, ChessPiece.Queen);
             //chessBoard.AddPiece(2, ChessBoardColumn.E, ChessPiece.Queen);
             //chessBoard.AddPiece(3, ChessBoardColumn.E, ChessPiece.Queen);
-            chessBoard.AddPiece(ChessBoardRow.Row5, ChessBoardColumn.ColE, ChessPiece.Queen);
+            chessBoard.AddPiece(ChessBoardColumn.ColE, ChessBoardRow.Row5, ChessPiece.Queen);
 
             // diagonal checks
-            chessBoard.AddPiece(ChessBoardRow.Row2, ChessBoardColumn.ColB, ChessPiece.Pawn);
-            chessBoard.AddPiece(ChessBoardRow.Row3, ChessBoardColumn.ColG, ChessPiece.Pawn);
-            chessBoard.AddPiece(ChessBoardRow.Row7, ChessBoardColumn.ColG, ChessPiece.Pawn);
-            chessBoard.AddPiece(ChessBoardRow.Row7, ChessBoardColumn.ColC, ChessPiece.Pawn);
+            chessBoard.AddPiece(ChessBoardColumn.ColB, ChessBoardRow.Row2, ChessPiece.Pawn);
+            chessBoard.AddPiece(ChessBoardColumn.ColG, ChessBoardRow.Row3, ChessPiece.Pawn);
+            chessBoard.AddPiece(ChessBoardColumn.ColG, ChessBoardRow.Row7, ChessPiece.Pawn);
+            chessBoard.AddPiece(ChessBoardColumn.ColC, ChessBoardRow.Row7, ChessPiece.Pawn);
 
             // hor/vert checks
-            chessBoard.AddPiece(ChessBoardRow.Row5, ChessBoardColumn.ColG, ChessPiece.Pawn);
-            chessBoard.AddPiece(ChessBoardRow.Row5, ChessBoardColumn.ColB, ChessPiece.Pawn);
-            chessBoard.AddPiece(ChessBoardRow.Row3, ChessBoardColumn.ColE, ChessPiece.Pawn);
-            chessBoard.AddPiece(ChessBoardRow.Row7, ChessBoardColumn.ColE, ChessPiece.Pawn);
+            chessBoard.AddPiece(ChessBoardColumn.ColG, ChessBoardRow.Row5, ChessPiece.Pawn);
+            chessBoard.AddPiece(ChessBoardColumn.ColB, ChessBoardRow.Row5, ChessPiece.Pawn);
+            chessBoard.AddPiece(ChessBoardColumn.ColE, ChessBoardRow.Row3, ChessPiece.Pawn);
+            chessBoard.AddPiece(ChessBoardColumn.ColE, ChessBoardRow.Row7, ChessPiece.Pawn);
 
             //chessBoard.AddPiece(5, ChessBoardColumn.E, ChessPiece.Queen);
             //chessBoard.AddPiece(6, ChessBoardColumn.E, ChessPiece.Queen);
             //chessBoard.AddPiece(7, ChessBoardColumn.E, ChessPiece.Queen);
 
             // draw an empty chessboard
-            _chessBoardVisualizerService.DrawBackgroundTileLayer(consoleTop, consoleLeft, chessBoard);
-            _chessBoardVisualizerService.DrawColumnAndRowLabels(consoleTop, consoleLeft, boardIndent);
+            _chessBoardVisualizerService.DrawBackgroundTileLayer(consoleLeft, consoleTop, chessBoard);
+            _chessBoardVisualizerService.DrawColumnAndRowLabels(consoleLeft, consoleTop, boardIndent);
             // _chessBoardVisualizerService.DrawHighlightLayer(consoleTop, consoleLeft, chessBoard);
 
             foreach (var chessBoardPiece in chessBoard.Pieces)
@@ -60,8 +60,10 @@ namespace Chess.ConsoleApp
                 var chessPiece = chessBoardPiece.Value;
                 var row = chessBoardPiece.Key.row;
                 var column = chessBoardPiece.Key.column;
-                _chessBoardVisualizerService.DrawPiece(consoleTop, consoleLeft, 
-                    row, column, chessBoard, 
+
+                _chessBoardVisualizerService.DrawPiece(
+                    consoleLeft, consoleTop, 
+                    column, row, chessBoard, 
                     ChessConverters.ChessPieceCategoryToCharMap[chessPiece.Category]);
             }
 
